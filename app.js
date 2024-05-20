@@ -147,15 +147,17 @@ app.get("/directors/", async (request, response) => {
 
 // get one directors
 
-app.get("/movies/:movieId/", async (request, response) => {
-  const { movieId } = request.params;
+app.get("/directors/:directorId/movies/", async (request, response) => {
+  const { directorId } = request.params;
   const getOneMovieQuery = `
     SELECT
       *
     FROM
     movie 
     WHERE
-      movie_id = ${movieId};`;
-  const movieObject = await db.get(getOneMovieQuery);
-  response.send(convertDbObjectToResponseObjectOfMovie(movieObject));
+      director_id = ${directorId};`;
+  const directorObject = await db.get(getOneMovieQuery);
+  response.send(convertDbObjectToResponseObjectOfMovie(directorObject));
 });
+
+module.exports = app;
